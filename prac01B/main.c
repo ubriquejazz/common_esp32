@@ -1,8 +1,7 @@
 #include "../blink.h"
 
 TaskHandle_t taskGreen, taskRed, taskBlue;
-TaskHandle_t taskSpeed;
-TaskHandle_t taskTally;
+TaskHandle_t taskSpeed, taskOLED;
 
 void TaskOLED() {
   char colorStr[6] ;
@@ -37,7 +36,7 @@ void main()
   xTaskCreate (TaskBlinkSeq, "", 4096, (void *)&blinkBlue, 3, &taskBlue);
   xTaskCreate (TaskBlinkSeq, "", 4096, (void *)&blinkGreen, 3, &taskGreen);
   xTaskCreate (TaskSpeed, "Speed", NULL, 2, &taskSpeed); 
-  xTaskCreate (TaskOLED, "OLED", NULL, 2, &taskTally); 
+  xTaskCreate (TaskOLED, "OLED", NULL, 2, &taskOLED); 
 
   // ...
 }
