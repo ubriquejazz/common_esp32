@@ -51,3 +51,7 @@ Next we are ready to start executing the startup code…
 For more info, see this tutorial
 
 ![img](https://miro.medium.com/v2/resize:fit:1400/1*Ium5nL6kGjRzAcKUvPTjFQ.jpeg)
+
+**References**
+- ESP32 [tutorial](https://medium.com/@tomw3115/implementing-freertos-solutions-on-esp-32-devices-using-arduino-114e05f7138a)
+- Hardware: ESP32 Dev (WROOM), ESP-CAM
