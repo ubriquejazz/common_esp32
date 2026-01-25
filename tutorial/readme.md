@@ -1,0 +1,69 @@
+We are going to follow three labs in this [tutorial](https://medium.com/@tomw3115/implementing-freertos-solutions-on-esp-32-devices-using-arduino-114e05f7138a)
+
+![img](https://miro.medium.com/v2/resize:fit:1400/1*Ium5nL6kGjRzAcKUvPTjFQ.jpeg)
+
+**Prac01**
+
+- Three LED lights blinking on and off, task increase the speed with a button. Add a semaphore to give some order.
+
+**Prac02**
+
+- Two new tasks: one to show the number of LEDs lit via an OLED display and other to show the watermark of each tasks at the begining (serial).
+
+**Prac03**
+
+- Serial parse and executer (semaphore and queue). Hardware: ESP32 Dev (WROOM), ESP-CAM
+
+## Functions
+
+These are the function prototypes that will be used to create  tasks. 
+
+- **Blinker Task** — to cycle an LED on and off (template task called **TaskBlink**)
+- **OLED Task** — to display the current number of LEDs lit at any given time.
+- **Highwater Task** — this will display a value at the serial console.
+- **Speedup Task** — increase the cycle speed 50% each time the button is pushed.
+- **CMD_Parse Task** - read and check user input, if values are acceptable the command is sent to the command processor. The input format is "command object" where command and object must conform to values in lists.
+- **CMD_Exec Task** - command processor (queue)
+
+
+
+**Blinker**
+
+Let's define a struct datatype called **BlinkData** to exchange information with  the tasks.
+
+- the GPIO pin number and initial delay are entered as values  
+- the speed multiplier and status variable are copied by reference, as they will change dynamically as the program runs.
+
+Load up data for each LED task
+
+    static BlinkData blinkGreen = { 15, 2500, &speedMult, &greenLED };
+    static BlinkData blinkRed = { 4, 3300, &speedMult, &redLED };
+    static BlinkData blinkBlue = { 16, 1800, &speedMult, &blueLED };
+
+We create BlinkData  variables for each LED with the  values to be used. Again note we are passing values for the pin and  delay, and pointers for the speed multiplier and the status.
+
+**Highwater mark**
+
+The high watermark describes the amount of memory (in bytes) that has been allocated to the task but never used. It can be used to adjust the allocation that is specified  when the task is initialized. You will see how this is used later.
+
+
+
+## Prac01
+
+Next we are ready to start executing the startup code…
+
+1. Here we are setting up the GPIO pin 23 to create an interrupt called  **buttonPush** on a falling value. This will trigger the routine defined in ...
+
+1. The arguments passed to the task creation function *xTaskCreate* include:
+
+   - function to call to initiate the task
+
+   - name to call the task (text)
+
+   - memory allocation for the task (bytes). We can tweak this after reading the highwater mark on first execution.
+
+   - variable passed to the function by reference (pointer to a BlinkData type)
+
+   - task priority (higher gets processed first)
+
+   - task handle name
