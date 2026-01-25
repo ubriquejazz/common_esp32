@@ -1,6 +1,24 @@
 # common_esp32
 
-Tutorial with these phases:
+## Arquitectura Nodos en IoT
+
+UPM [practicas](https://miot-rpi.github.io/practicas/)
+
+- e_1 -> Uso de `i2ctools`
+
+- e_2 -> Lectura de temperatura
+
+- e_3 -> Uso de CRC en sensor
+
+- e_4 -> Aplicación con FSM
+
+---
+
+e_1 -> Lectura de fuente de tensión variable
+
+e_2 -> Lectura de distancias
+
+## Tutorial with these phases
 
 1. Three LED lights blinking on and off, task increase the speed with a button. Add a semaphore to give some order (template task called **TaskBlink**)
 1. Two new tasks: one to show the number of LEDs lit via an OLED display and other to show the watermark of each tasks at the begining (serial).

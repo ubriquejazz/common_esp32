@@ -1,6 +1,10 @@
 workspace
 sandbox
-.DS_Stores
+.DS_Store
+aniot/.DS_Store
+prac01/.DS_Store
+prac02/.DS_Store
+prac03/.DS_Store
 
 # Object files
 *.o
