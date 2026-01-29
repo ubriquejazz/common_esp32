@@ -2,7 +2,7 @@
 
 ## Arquitectura Nodos en IoT
 
-UPM [practicas](https://miot-rpi.github.io/practicas/)
+UPM [practicas](https://miot-rpi.github.io/practicas/ANIOT/P1/)
 
 - e_1 -> Uso de `i2ctools`
 

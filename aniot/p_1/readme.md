@@ -26,16 +26,17 @@ La primera parte de esta sesión consistirá en la instalación de dicha extensi
 
 - En primer lugar, sigue los pasos indicados en su [guía de instalación](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/) para instalar de la extensión en VSCode. **Realiza este paso antes de venir al laboratorio**, pues la instalación tardará varios minutos. Podéis saltar el paso 6 (OPCIONAL) y basta con elegir la opción *EXPRESS*
 - Conecta la placa ESP32-Rust (ESP32-C3) y comprueba el nombre del  dispositivo generado (en Linux y Mac, habrá aparecido un fichero nuevo  en `/dev`)
-- A continuación, sigue los pasos del [para crear un proyecto nuevo a partir de un template](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/startproject.html) para volcar en la placa el código del ejemplo *Blink*. Recuerda esocger *esp32-c3* como chip y *esp32-c3 Chip (Via builting USB-JTAG)* como  *Device Target* (si quieres usar la otra placa, deberías escoger  *esp32-ESP32 Chip (Via USB-Bridge)* como *Device Target*) Por ahora, salta los pasos 5 y 6 (configuración) y procede directamente a la compilación y descarga en la placa.
-- El nombre asociado al puerto serie al que se conecta la placa dependerá del sistema operativo usado. En Linux será algo similar  */dev/ttyUSB0*. **IMPORTANTE**: usando la placa ESP32-Devkit-c (del maletín), debes usar UART como  método de programar el dispositivo (y no JTAG como aparece por defecto).
+- A continuación, sigue los pasos del [para crear un proyecto nuevo a partir de un template](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/startproject.html) para volcar en la placa el código del ejemplo *Blink*. Recuerda escoger 
+  - *esp32-c3* como chip y *esp32-c3 Chip (Via builting USB-JTAG)* como  *Device Target* (si quieres usar la otra placa, deberías escoger  *esp32-ESP32 Chip (Via USB-Bridge)* como *Device Target*) 
+  - Por ahora, salta los pasos 5 y 6 (configuración) y procede directamente a la compilación y descarga en la placa.
+
+- El nombre asociado al puerto serie al que se conecta la placa dependerá del sistema operativo usado. En Linux será algo similar  */dev/ttyUSB0*. **IMPORTANTE**: usando la placa ESP32-Devkit-C (del maletín), debes usar UART como  método de programar el dispositivo (y no JTAG como aparece por defecto).
 
 Cuestiones
 
 - ¿Qué versión es la actualmente estable de ESP-IDF?
 - ¿Cuál es la salida estándar por defecto de nuestro proyecto?
-- ¿En qué unidades debemos expresar el argumento de `vTaskDelay()`? Investiga la macro pdTICKS_TO_MS. ¿Cómo se reescribiría esa línea usando dicha
-
-macro?
+- ¿En qué unidades debemos expresar el argumento de `vTaskDelay()`? Investiga la macro pdTICKS_TO_MS. ¿Cómo se reescribiría esa línea usando dicha macro?
 
 ## Configuración de un proyecto
 

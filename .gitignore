@@ -2,34 +2,24 @@ workspace
 sandbox
 .DS_Store
 aniot/.DS_Store
-prac01/.DS_Store
-prac02/.DS_Store
-prac03/.DS_Store
+tutorial/*/.DS_Store
+tutorial/.DS_Store
 
 # Object files
 *.o
 *.ko
 *.obj
 *.elf
-
-# Precompiled Headers
-*.gch
-*.pch
-
 # Libraries
 *.lib
 *.a
-
-
 # Shared objects (inc. Windows DLLs)
 *.dll
 *.so
-
 # Executables
 *.exe
 *.out
 *.hex
-
 # Debug files
 *.idb
 *.pdb
