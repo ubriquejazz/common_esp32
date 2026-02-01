@@ -1,4 +1,4 @@
-# Práctica 5.  Uso de ADC.
+# 5.  Uso de ADC.
 
 El objetivo  de esta práctica es  conociendo los mecanismos de entrada/salida ofrecidos por ESP-IDF para interaccionar con dispositivos
 
