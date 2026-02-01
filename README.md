@@ -25,6 +25,12 @@ Protocolos necesarios para transmitir la información a servicios en la nube. Un
 
 UPM [practicas](https://miot-rpi.github.io/practicas/ANIOT/P1/)
 
+1. Blink with Delays
+2. Blink with Timers
+3. Tasks and events
+4. Bus i2c (sht sensor)
+5. ADC
+
 - e_1 -> Uso de `i2ctools`
 
 - e_2 -> Lectura de temperatura
