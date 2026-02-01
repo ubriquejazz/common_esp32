@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #include "si7021.h"
 
 // include for periodic timer
@@ -10,14 +9,12 @@
 #include "freertos/task.h"
 #include "freertos/semphr.h"
 
-
 #include "esp_err.h"
 #include "esp_log.h"
 static const char *TAG = "main";
 
 // DEFINITIONS //
 #define APP_DURATION_MS  /* 60000 */ CONFIG_APP_DURATION_MS
-
 #define APP_SI7021_PERIOD_MS  /* 1000 */ CONFIG_APP_SI7021_PERIOD_MS
 
 // I2C LOCK //
@@ -39,13 +36,10 @@ void si7021_periodic_timer_callback(void *arg)
     }
 }
 
-
-
 void app_main(void)
 {
     esp_err_t err;
 
-    // I2C LOCK //
     i2c_lock = xSemaphoreCreateMutex();
     if (i2c_lock == NULL) {
         ESP_LOGE(TAG, "Could not create I2C lock");
