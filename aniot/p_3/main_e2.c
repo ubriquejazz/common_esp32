@@ -6,15 +6,11 @@
 // include for ESP GPIO
 #include "driver/gpio.h"
 
-// input GPIO
-#define GPIO_INPUT 5
-
-
 // include HRT timer
 #include "esp_timer.h"
 
+#define GPIO_INPUT 5
 #define PERIOD_MS 1000
-
 
 // Periodic timer callback
 void periodic_timer_callback(void* arg)
@@ -47,6 +43,7 @@ void app_main(void)
         .pull_up_en = GPIO_PULLUP_DISABLE,
         .intr_type = GPIO_INTR_DISABLE
     };
+    
     gpio_config(&io_conf);
 
     // Periodic timer

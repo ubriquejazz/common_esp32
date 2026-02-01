@@ -1,14 +1,10 @@
 #include <stdio.h>
-
-// include for ESP logging
 #include "esp_log.h"
-
-// include for ESP events
 #include "esp_event.h"
+
 ESP_EVENT_DECLARE_BASE(APP_EVENTS);
 
-enum
-{
+enum {
     HALL_EVENT_NEWSAMPLE
 };
 
@@ -26,13 +22,10 @@ esp_event_loop_handle_t event_loop;
 #define PERIOD_MS 2000
 
 // HALL_EVENT_NEWSAMPLE event handler
-static void hall_event_newsample_handler(
-        void* arg,
+static void hall_event_newsample_handler(void* arg,
         esp_event_base_t event_base,
-        int32_t event_id, 
-        void* event_data)
+        int32_t event_id, void* event_data)
 {
-    // TAG
     static const char* TAG = "HALL_EVENT_NEWSAMPLE";
     
     // read Hall sensor
@@ -78,7 +71,6 @@ void app_main(void)
             &hall_event_newsample_handler, NULL
         )
     );
-
 
     // Timer args
     esp_timer_create_args_t periodic_timer_args = {
