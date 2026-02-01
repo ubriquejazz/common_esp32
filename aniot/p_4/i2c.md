@@ -1,4 +1,4 @@
-# 4. Bus I2C. Sensor de temperatura
+# Bus I2C. Sensor de temperatura
 
 El objetivo de esta práctica es conocer el funcionamiento del bus I2C y la interfaz que ofrece ESP-IDF para su uso. Trabajaremos los siguientes aspectos del API de ESP-IDF:  
 
@@ -16,11 +16,17 @@ Para ver los detalles de cada aspecto de esta práctica se recomienda la lectura
 
 ## Bus I2C
 
-Fue desarrollado en la empresa **Philips** (ahora **NXP**) en la década de los 80 con el objetivo de  comunicar circuitos integrados con número mínimo de pines. El nombre I2C viene de *Inter IC*. Se usa tanto la abreviatura I2C como IIC. En 2014, *NXP* publicó la Rev. 6 del protocolo.
+Fue desarrollado en la empresa **Philips** (ahora **NXP**) en la década de los 80, en 2014, *NXP* publicó la Rev. 6 del protocolo.
 
 Proporciona una conexión *serie síncrona unidireccional* (no  permite envíos en dos direcciones de forma simultanea). La velocida  máxima de comunicación era originalmente de 100 kbit/s, y muchas  aplicaciones no requieren de velocidades mayores. Existe un *fast mode* a 400kbits/s, *fast mode plus*  (1Mbits/s), ambos compatibles hacia atrás y sin lógica adicional (aunque puede suponer ajustes en las resistencias de *pull-up* para controlar las corrientes requeridas).  La especificación  *high speed mode - HS I2C* permite conexiones a 3.4Mbits/s, pero exige lógica adicional. En nuestras pruebas, se recomienda mantener 400 kbits/s.
 
-Las principales características de I2C son: * Sólo require dos líneas: SDA y SCL.  * No hay requerimientos estrictos de *baud rate* como en RS232, ya que el *master* genera la señal de reloj. * Existe una relación sencilla *master/slave* entre todos los componentes. * Permite tener varios *master* pues proporciona mecanismos de arbitraje y detección de colisiones. * Cada dispositivo tiene una única dirección de 7-bits (en ocasiones, de 10 bits) que proporciona el fabricante.
+Las principales características de I2C son: 
+
+- Sólo require dos líneas: SDA y SCL.  
+- No hay requerimientos estrictos de *baud rate* como en RS232, ya que el *master* genera la señal de reloj.
+- Existe una relación sencilla *master/slave* entre todos los componentes. 
+- Permite tener varios *master* pues proporciona mecanismos de arbitraje y detección de colisiones. 
+- Cada dispositivo tiene una única dirección de 7-bits (en ocasiones, de 10 bits) que proporciona el fabricante.
 
 ## Nueva interfaz I2C en ESP-IDF
 
@@ -29,7 +35,8 @@ ESP-IDF ha cambiado completamente el interfaz para el uso de  dispositivos I2C, 
 ![estructura](https://miot-rpi.github.io/practicas/ANIOT/P4/img/i2c-structure.png) 
 
 
-Consulta la [documentación de  ESP-IDF sobre I2C](https://docs.espressif.com/projects/esp-idf/en/v5.3.1/esp32/api-reference/peripherals/i2c.html) para ver los detalles de la API. A continuación, resumimos lo más relevante.
+
+Consulta la documentación de  ESP-IDF sobre [I2C](https://docs.espressif.com/projects/esp-idf/en/v5.3.1/esp32/api-reference/peripherals/i2c.html) para ver los detalles de la API, resumimos lo más relevante.
 
 El uso de dispositivos I2C con ESP-IDF sigue las siguientes etapas:
 
@@ -104,7 +111,12 @@ Para comuicarnos con un sensor, configuraremos el ESP32 en modo *master*. Tras i
 
 ![escritura](https://miot-rpi.github.io/practicas/ANIOT/P4/img/i2c-espidf.png)
 
-Como se indica en la figura anterior, extraída de la web oficial de Espressif, debemos crear un paquete de comandos (*cmd_link*) mediante la llamda a `i2c_cmd_link_create()`. En ella incluiremos cada elemento del protocolo I2C: * Bit de start. * Dirección del dispositivo *slave* (7 bits). * Bit de lectura/escritura. * Secuencia de bytes que se desean escribir.
+Como se indica en la figura anterior, extraída de la web oficial de Espressif, debemos crear un paquete de comandos (*cmd_link*) mediante la llamda a `i2c_cmd_link_create()`. En ella incluiremos cada elemento del protocolo I2C: 
+
+* Bit de start.  
+* Dirección del dispositivo *slave* (7 bits). 
+* Bit de lectura/escritura. 
+* Secuencia de bytes que se desean escribir.
 
 Es importante resaltar que, aunque lo que deseemos sea leer de un  sensor (por ejemplo, leer la temperatura), es necesario escribir en el  bus, pues lo primero que haremos será enviar la dirección (primer *write_byte*) y, habitualmente, un comando al dispositivo sensor.
 
@@ -126,9 +138,7 @@ El Si7021 es un sensor de humedad y temperatura fabricado por *Silicon Labs*. Es
 
 ![sensor](https://miot-rpi.github.io/practicas/ANIOT/P4/img/si7021.png)
 
-En el maletín del máster viene montado en una [placa fabricada por *Adafruit*](https://www.adafruit.com/product/3251). Adfruit es una compañía fundada por Limor Fried con la intención de  convertirse en un portal de referencia para el aprendizaje de  electrónica y la fabricación de diseños para *makers* de todos los niveles. ¡Merece mucho la pena echar un vistazo a su *web*!
-
-Dependiendo de la versión del PCB que haya en el maletín, puede que únicamente haya pines expuestos (*Vin*, *3Vo*, *GND*, *SCL* y *SDA*) o conectores *STEMMA QT*, compatible con los conectores [*Qwiic* de Sparkfun](https://www.sparkfun.com/qwiic) (Sparkfun es otra compañía tan interesante como *Adafruit*). Lamentablemente, nuestra placa ESP32 DevKit-C no tiene conectores de  ese tipo, por lo que necesitaremos conectar directamente los 4 cables:  alimentación, tierra, SCL y SDA.
+En el maletín del máster viene montado en una [placa fabricada por *Adafruit*](https://www.adafruit.com/product/3251). Dependiendo de la versión del PCB, puede que únicamente haya pines expuestos (*Vin*, *3Vo*, *GND*, *SCL* y *SDA*) o conectores *STEMMA QT*, compatible con los conectores [*Qwiic* de Sparkfun](https://www.sparkfun.com/qwiic) (Sparkfun es otra compañía tan interesante como *Adafruit*). Lamentablemente, nuestra placa ESP32 DevKit-C no tiene conectores de  ese tipo, por lo que necesitaremos conectar directamente los 4 cables:  alimentación, tierra, SCL y SDA.
 
 De acuerdo a las [especificaciones del sensor Si7021](https://www.silabs.com/documents/public/data-sheets/Si7021-A20.pdf), el voltaje de entrada no debe superar los 3.6V. La placa de *Adafruit* proporcionada tiene un regulador de voltaje que nos permite conectar tanto 3.3V como 5V. 
 
@@ -216,11 +226,11 @@ void app_main(void)
 }
 ```
 
-### Usar componente ICM-42670-P con nuevo driver
+### Usar componente ICM-42670-P con nuevo driver (2026)
 
-El [registro de componentes de IDF](https://components.espressif.com/) incluye un componente para utilizar la IMU incluida en la placa ESP-RUST-BOARD (con el SoC ESP32-C3):[ICM42607/ICM42670 6-Axis MotionTracking (Accelerometer and Gyroscope)](https://components.espressif.com/components/espressif/icm42670/versions/2.0.0).
+El [registro de componentes de IDF](https://components.espressif.com/) incluye un componente para utilizar la IMU incluida en la placa ESP-RUST-BOARD (con el SoC ESP32-C3):[ICM42607/ICM42670](https://components.espressif.com/components/espressif/icm42670/versions/2.0.0) 6-Axis MotionTracking (Accelerometer and Gyroscope).
 
-Crea una aplicación que monitorice el estado del acelerómetro y  determine si la placa está boca arriba o boca abajo. El LED RGB cambiará de color en función de la orientación, y se imprimirá por terminal el  estado actual.
+Crea una aplicación que monitorice el estado del **acelerómetro** y  determine si la placa está boca arriba o boca abajo. El LED RGB cambiará de color en función de la orientación, y se imprimirá por terminal el  estado actual.
 
 Recuerda que, antes de poder usar cualquier dispositivo I2C, es  necesario instanciar el controlador de bus I2C que vayamos a utilizar  (en este caso, el úinico disponible en esta placa).
 
