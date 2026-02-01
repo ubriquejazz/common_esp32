@@ -1,4 +1,4 @@
-# 3. Programación con tareas y eventos en ESP-IDF
+# Programación con tareas y eventos en ESP-IDF
 
 El objetivo  de esta práctica es conocer los mecanismos para la gestión de tareas que ofrece FreeRTOS, concretamente en su porting  ESP-IDF.
 
@@ -47,7 +47,7 @@ Cuestión
 
 ### Comunicación mediante colas
 
-Modifica el código anterior para que las dos tareas (inicial y  muestreadora) se comuniquen mediante una [cola de  ESP-IDF]https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos_idf.html#queue-api).
+Modifica el código anterior para que las dos tareas (inicial y  muestreadora) se comuniquen mediante una [cola de  ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos_idf.html#queue-api).
 
 Tarea
 

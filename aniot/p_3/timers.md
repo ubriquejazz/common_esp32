@@ -1,4 +1,4 @@
-# 2. Entorno, uso de timers
+# Uso de timers
 
 El objetivo de esta práctica es familiarizarse con la estructura de  componentes en que se basa la compilación de proyectos en ESP-IDF.  Asímismo, aprovecharemos para utlizar *timers*. Trabajaremos los siguientes aspectos:
 
