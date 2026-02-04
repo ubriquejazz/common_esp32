@@ -1,26 +1,5 @@
 # common_esp32
 
-## Stmas e ifaces web
-
-Desplegar soluciones IoT para apl de control distribuido, comenzando por los ESP32 de bajo coste, pero con capacidades de gestión de energía, comunicaciones, protección ...
-
-Protocolos necesarios para transmitir la información a servicios en la nube. Una vez los datos en la nube se estudia el desarrollo de las interfaces web para interactuar con los datos y con los elementos IoT.
-
-**Introduccion**
-
-- Conceptos básicos. Internet
-- Protocolos utilizados en IoT
-- Comunicaciones inalámbricas
-- Seguridad en comunicaciones
-
-**ESP32: uC adaptados para aplicaciones distribuidas**
-
-• 3 + 3 horas
-
-**AWS: Plataformas de procesado en la nube**
-
-• 4 + 2 horas
-
 ## Arquitectura Nodos en IoT
 
 UPM [practicas](https://miot-rpi.github.io/practicas/ANIOT/P1/)
