@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ejemplo 6</title>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>  
+<script type="text/javascript" >
+    window.onload = function () {  
+        var reconnectTimeout = 2000;
+        var host ="broker.emqx.io";
+        var port = 8083;
+
+        var clientId = "webio4mqttexample";
+        clientId += new Date().getUTCMilliseconds();;
+        var myTopic="testtopic/nodered/2";
+        console.log("On load");
+
+        // Create a client instance
+        //client = new Paho.MQTT.Client(location.hostname, Number(location.port), "clientId");
+        client = new Paho.MQTT.Client(host, port, clientId);
+
+        // set callback handlers
+        client.onConnectionLost = onConnectionLost;
+        client.onMessageArrived = onMessageArrived;
+
+        // connect the client
+        client.connect({onSuccess:onConnect});
+
+        // called when the client connects
+        function onConnect() {
+            // Once a connection has been made, make a subscription and send a message.
+            console.log("onConnect");
+            client.subscribe(myTopic);
+         //   message = new Paho.MQTT.Message("Hello");
+         //   message.destinationName = myTopic;
+         //   client.send(message); 
+        }
+
+        // called when the client loses its connection
+        function onConnectionLost(responseObject) {
+            if (responseObject.errorCode !== 0) {
+                console.log("onConnectionLost:"+responseObject.errorMessage);
+            }
+        }
+
+        // called when a message arrives
+        function onMessageArrived(message) {
+            console.log("onMessageArrived:"+message.payloadString);
+            // Transforma el mensaje JSON en un objeto
+            var lectura = JSON.parse(message.payloadString);
+            console.log("Temp = " + lectura.temperatura);
+            console.log("Iluminacion = " + lectura.iluminacion);
+            // Actualiza los valores recibidos en el código HTML
+            updateTemperature(lectura.temperatura); 
+            updateIluminacion(lectura.iluminacion); 
+        }        
+    } 
+    // actualiza el valor de la temperatura en el código HTML
+    function updateTemperature(temperatura){
+        document.getElementById("temperatura").innerHTML = temperatura + " &ordm;C";
+    }
+    // actualiza el valor de la iluminación en el código HTML
+    function updateIluminacion(iluminacion){
+        document.getElementById("iluminacion").innerHTML = iluminacion + " lux";
+    }
+</script>
+<body>
+    <h1>Lectura de sensores</h1>
+    <table>
+        <tr>
+            <td>Temperatura:</td>
+            <td  id="temperatura">27 &ordm;C</td>
+        </tr>
+        <tr>
+            <td>Iluminacion:</td>
+            <td  id="iluminacion">30 lux</td>
+        </tr>
+   </table>
+ </body>
+</html> 
+

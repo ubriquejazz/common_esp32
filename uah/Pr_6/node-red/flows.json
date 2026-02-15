@@ -1,0 +1,365 @@
+[
+    {
+        "id": "ad390d23.9326e",
+        "type": "tab",
+        "label": "NodeRedIoTExamples",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "883c93aa.3b71d",
+        "type": "inject",
+        "z": "ad390d23.9326e",
+        "name": "Reloj 3 seg",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "clk",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 160,
+        "wires": [
+            [
+                "1777ef76.089451",
+                "70281e80.66874"
+            ]
+        ]
+    },
+    {
+        "id": "1777ef76.089451",
+        "type": "function",
+        "z": "ad390d23.9326e",
+        "name": "Diente de sierra",
+        "func": "// Create a Date object from the payload\nvar maximo = context.get('max')||0;\n// initialise the counter to 0 if it doesn't exist already\nvar count = context.get('count')||0;\n\nif (msg.topic === \"max\") {\n   maximo = msg.payload;\n   context.set('max',maximo);\n}\n\nif (msg.topic === \"clk\") {\n   count += 1;\n   if (count > maximo)\n      count = 0;\n   // store the value back\n   context.set('count',count);\n}\n   // make it part of the outgoing msg object\nmsg.payload = count;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 420,
+        "y": 160,
+        "wires": [
+            [
+                "35c9080f.95db48",
+                "dd5e98cb.0f2cb8",
+                "dc116f19.809c5"
+            ]
+        ],
+        "inputLabels": [
+            "clk, max"
+        ]
+    },
+    {
+        "id": "35c9080f.95db48",
+        "type": "debug",
+        "z": "ad390d23.9326e",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 670,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "dc116f19.809c5",
+        "type": "mqtt out",
+        "z": "ad390d23.9326e",
+        "name": "PublicServer /testtopic/nodered/JP/1",
+        "topic": "testtopic/nodered/JP/1",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "0027f25614e39fb1",
+        "x": 750,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "9ca3193c.3d39d8",
+        "type": "mqtt in",
+        "z": "ad390d23.9326e",
+        "name": "",
+        "topic": "testtopic/nodered/JP/1",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "0027f25614e39fb1",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 140,
+        "y": 600,
+        "wires": [
+            [
+                "4e415b84.ee3964",
+                "af697a22.4962b8"
+            ]
+        ]
+    },
+    {
+        "id": "af697a22.4962b8",
+        "type": "debug",
+        "z": "ad390d23.9326e",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 370,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "4e415b84.ee3964",
+        "type": "function",
+        "z": "ad390d23.9326e",
+        "name": "ToInt",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 560,
+        "wires": [
+            [
+                "23365ac7.e4e2d6"
+            ]
+        ]
+    },
+    {
+        "id": "c1a4a6a2.04b6d8",
+        "type": "mqtt out",
+        "z": "ad390d23.9326e",
+        "name": "PublicServer  /testtopic/nodered/JP/2",
+        "topic": "testtopic/nodered/JP/2",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "0027f25614e39fb1",
+        "x": 750,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "70281e80.66874",
+        "type": "function",
+        "z": "ad390d23.9326e",
+        "name": "Diente de sierra JSON",
+        "func": "// Create a Date object from the payload\nvar maximo = context.get('max')||0;\n// initialise the counter to 0 if it doesn't exist already\nvar count = context.get('count')||0;\n\nif (msg.topic === \"max\") {\n   maximo = msg.payload;\n   context.set('max',maximo);\n}\n\nif (msg.topic === \"clk\") {\n   count += 1;\n   if (count > maximo)\n      count = 0;\n   // store the value back\n   context.set('count',count);\n}\n   // make it part of the outgoing msg object\nvar dato = {temperatura:\"30\",\n            iluminacion:\"15\"\n};\ndato.temperatura = count;\ndato.iluminacion = maximo;\nvar d = new Date();\n\ndato.now = d.getTime();\nmsg.payload = JSON.stringify(dato);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 420,
+        "y": 320,
+        "wires": [
+            [
+                "c1a4a6a2.04b6d8",
+                "baa46a69.e08e28"
+            ]
+        ],
+        "inputLabels": [
+            "clk, max"
+        ]
+    },
+    {
+        "id": "baa46a69.e08e28",
+        "type": "debug",
+        "z": "ad390d23.9326e",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 670,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "cdc401d0.63f72",
+        "type": "ui_slider",
+        "z": "ad390d23.9326e",
+        "name": "",
+        "label": "Valor maximo",
+        "tooltip": "",
+        "group": "b9265741.53ce7",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "max",
+        "min": 0,
+        "max": "100",
+        "step": 1,
+        "x": 120,
+        "y": 300,
+        "wires": [
+            [
+                "70281e80.66874",
+                "1777ef76.089451",
+                "6baef65e.fab028"
+            ]
+        ]
+    },
+    {
+        "id": "6baef65e.fab028",
+        "type": "ui_text",
+        "z": "ad390d23.9326e",
+        "group": "b9265741.53ce7",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Max",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 350,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "dd5e98cb.0f2cb8",
+        "type": "ui_chart",
+        "z": "ad390d23.9326e",
+        "name": "",
+        "group": "b9265741.53ce7",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Enviados",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "30",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 660,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "23365ac7.e4e2d6",
+        "type": "ui_chart",
+        "z": "ad390d23.9326e",
+        "name": "Recibido MQTT",
+        "group": "b9265741.53ce7",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Recibidos MQTT",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "30",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "x": 540,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0027f25614e39fb1",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "test.mosquitto.org",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b9265741.53ce7",
+        "type": "ui_group",
+        "name": "DienteSierra",
+        "tab": "5b142b3d.0014dc",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "5b142b3d.0014dc",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

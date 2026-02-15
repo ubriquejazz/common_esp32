@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ejemplo 10</title>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>  
+<script type="text/javascript" >
+
+    window.onload = function () {  
+        var reconnectTimeout = 2000;
+        var host ="broker.emqx.io";
+        var port = 8083;
+
+        var clientId = "webio4mqttexample";
+        clientId += new Date().getUTCMilliseconds();;
+        var myTopic="testtopic/nodered/2";
+        console.log("On load");
+
+        // Create a client instance
+        //client = new Paho.MQTT.Client(location.hostname, Number(location.port), "clientId");
+        client = new Paho.MQTT.Client(host, port, clientId);
+
+        // set callback handlers
+        client.onConnectionLost = onConnectionLost;
+        client.onMessageArrived = onMessageArrived;
+
+        // connect the client
+        client.connect({onSuccess:onConnect});
+
+         // called when the client connects
+        function onConnect() {
+            // Once a connection has been made, make a subscription and send a message.
+            console.log("onConnect");
+            client.subscribe(myTopic);
+         //   message = new Paho.MQTT.Message("Hello");
+         //   message.destinationName = myTopic;
+         //   client.send(message); 
+        }
+
+        // called when the client loses its connection
+        function onConnectionLost(responseObject) {
+            if (responseObject.errorCode !== 0) {
+                console.log("onConnectionLost:"+responseObject.errorMessage);
+            }
+            console.log("Reconectando");
+            // reconnect the client
+            client.connect({onSuccess:onConnect});
+
+        }
+
+        // called when a message arrives
+        function onMessageArrived(message) {
+            console.log("onMessageArrived:"+message.payloadString);
+            // convierte en objeto el JSON recibido en el mensaje
+            var lectura = JSON.parse(message.payloadString);
+            console.log("Temp = " + lectura.temperatura);
+            console.log("Iluminacion = " + lectura.iluminacion);
+           // actualiza los objetos de visualización en función de las variables
+           updateTemperature(lectura.temperatura); 
+            updateIluminacion(lectura.iluminacion); 
+            updateTempGauge(lectura.temperatura);
+            updateLuxGauge(lectura.iluminacion);
+            chartAddData(lectura.temperatura,lectura.iluminacion,lectura.now);
+        }    
+            
+        // actualiza el valor de la temperatura en el código HTML
+        function updateTemperature(temperatura){
+            document.getElementById("temperatura").innerHTML = temperatura + " &ordm;C";
+            color_R=(temperatura/100.0)*255;
+            color_B=((100.0-temperatura)/100)*255;
+            document.getElementById("temp").style.backgroundColor = "rgb("+color_R+",0,"+color_B+")";
+            document.getElementById("temp").style.width=""+temperatura+"px";
+        }
+        // actualiza el valor de la iluminación en el código HTML
+        function updateIluminacion(iluminacion){
+            document.getElementById("iluminacion").innerHTML = iluminacion + " lux";
+            document.getElementById("ilu").style.backgroundColor = "hsl(50, " + iluminacion + "%, 49%)";
+        }
+
+        // Funciones de GAUGEJS ( https://canvas-gauges.com/documentation/user-guide/  )
+        function updateTempGauge(valor) {  
+            tempGaugeElement = document.getElementById('temp_gauge');
+            tempGaugeElement.setAttribute('data-value', valor);
+        };
+        function updateLuxGauge(valor) {  
+            tempGaugeElement = document.getElementById('lux_gauge');
+            tempGaugeElement.setAttribute('data-value', valor);
+        }; 
+    } 
+
+
+</script>
+<body>
+    <h1>Lectura de sensores</h1>
+    <table>
+        <tr>
+            <td>Temperatura:</td>
+            <td  id="temperatura"></td>
+            <td>
+                <table>
+                    <tr><td id="temp" >.</td></tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>Iluminacion:</td>
+            <td  id="iluminacion"></td>
+            <td  id="ilu" ></td>
+            
+        </tr>
+    </table>
+    <h1 style="text-align: center;">Lectura de con indicadores graficos</h1>
+    <h2 style="text-align: center;">Gauges</h2>
+    <table  style="width: 100%;" >
+        <tr>
+            <td>
+                <script src="https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.7/all/gauge.min.js"></script>
+                <canvas id="temp_gauge" 
+                    data-type="linear-gauge"
+                    data-width="160"
+                    data-height="600"
+                    data-border-radius="0"
+                    data-borders="0"
+                    data-bar-begin-circle="25"
+                    data-minor-ticks="10"
+                    data-value="0"
+                    data-min-value="0"
+                    data-max-value="100"
+                    data-title="°C"
+                    data-major-ticks="0,10,20,30,40,50,60,70,80,90,100"
+                    data-ticks-width="18"
+                    data-ticks-width-minor="7.5"
+                    data-bar-width="5"
+                    data-highlights="false"
+                    data-color-value-box-shadow="false"
+                    data-value-box-stroke="0"
+                    data-color-value-box-background="false"
+                    data-value-int="2"
+                    data-value-dec="1"
+                    >
+                </canvas>
+            </td>
+            <td style="align-self: center;"> 
+                <!-- Injecting radial gauge -->
+                <canvas id="lux_gauge"
+                    data-type="radial-gauge"
+                    data-width="400"
+                    data-height="400"
+                    data-units="% iluminacion"
+                    data-title="false"
+                    data-value="0"
+                    data-min-value="0"
+                    data-max-value="100"
+                    data-major-ticks="0,10,20,30,40,50,60,70,80,90,100"
+                    data-minor-ticks="2"
+                    data-stroke-ticks="false"
+                    data-highlights='[
+                        { "from": 0, "to": 20, "color": "rgba(0,255,0,.15)" },
+                        { "from": 20, "to": 40, "color": "rgba(255,255,0,.15)" },
+                        { "from": 40, "to": 60, "color": "rgba(255,30,0,.25)" },
+                        { "from": 60, "to": 80, "color": "rgba(255,0,225,.25)" },
+                        { "from": 80, "to": 100, "color": "rgba(0,0,255,.25)" }
+                        ]'
+                    data-color-plate="#222"
+                    data-color-major-ticks="#f5f5f5"
+                    data-color-minor-ticks="#ddd"
+                    data-color-title="#fff"
+                    data-color-units="#ccc"
+                    data-color-numbers="#eee"
+                    data-color-needle-start="rgba(240, 128, 128, 1)"
+                    data-color-needle-end="rgba(255, 160, 122, .9)"
+                    data-value-box="true"
+                    data-animation-rule="bounce"
+                    data-animation-duration="500"
+                    data-font-value="Led"
+                    data-animated-value="true"
+                    >
+                </canvas>
+            </td>
+        </tr>
+    </table>
+    <h1 style="text-align: center;">Lectura de con indicadores graficos</h1>
+    <h2 style="text-align: center;">ChartJs</h2>
+     <table style="margin-left:auto;margin-right:auto;width: 500px;">
+        <tr>    
+            <td>
+                <div id="container" style="width: 100%;">
+                    <canvas id="canvas_chartjs"></canvas>
+                </div>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
+                <script>
+
+                    //Funciones de ChartJS
+                    var ctx = document.getElementById('canvas_chartjs');
+                    var maxData = 19;  // Numero maximo de datos a representar en el chart
+                    var color = Chart.helpers.color;
+                    // Contenedor de datos con dos datasets y un conjunto de labels del eje y
+
+
+                    var barChartData = {
+                        labels: [],
+                        datasets: [{
+                            label: 'Temperatura',
+                            borderWidth: 1,
+                            fill: true,
+                            data: []
+                        }, {
+                            label: 'Iluminacion',
+                            borderWidth: 1,
+                            data: []
+                        }]       
+                    };
+                    
+                    //Genera el canvas
+                    var myLineChart = new Chart(ctx, {
+                        type: 'line',
+                        data: barChartData,
+                        options: {
+                            responsive: true,
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Chart.js Line Chart'
+                            }
+                        }
+                    });    
+                    // Elimina un dato del conjunto de datos
+                    function chartRemoveData() {
+                        barChartData.labels.splice(-1, 1); // remove the label first
+        
+                        barChartData.datasets.forEach(function(dataset) {
+                            dataset.data.shift();
+                        });
+      
+                        window.myLineChart.update();
+                    };
+                    // Añade un dato al conjunto de datos y elimina uno si excede del tamaño máximo
+                    function chartAddData(temp,lux,now) {
+                        if (barChartData.datasets[0].data.length > maxData) {
+                            chartRemoveData();
+                        }
+                    
+                        if (barChartData.datasets.length > 0) {
+                            var d = new Date();
+                            d.setTime(now);
+                       
+                            barChartData.labels.push(d.toLocaleTimeString());
+
+                            barChartData.datasets[0].data.push(temp);
+                            barChartData.datasets[1].data.push(lux);
+
+                            window.myLineChart.update();
+                        }
+                    };
+   
+                </script>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html> 
