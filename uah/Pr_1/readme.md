@@ -36,3 +36,13 @@ Ejecutar el código Python anterior en el PC local y capturar los paquetes invol
 **Ejercicio MQTT**
 
 ![whiresharck](../fig/whiresharck.png)
+
+## 202602
+
+- Perception > Network (router) > App cloud
+- publisher / subscribe : desacoplamiento temporal (broker)
+- toleracion a desconexion
+- REST: respresentational State Transfer (RESTFull services)
+- Stateless: la API son metodos GET/POST
+- Websockets: dashboards datos agregados
+- CBOR = JSON en binario
