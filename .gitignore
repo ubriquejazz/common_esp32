@@ -1,9 +1,19 @@
 workspace
 sandbox
+
+# Node
+uah/*/node_modules
+
+# Mac 
 .DS_Store
 aniot/.DS_Store
-tutorial/*/.DS_Store
+uah/.DS_Store
 tutorial/.DS_Store
+
+# 2n level
+aniot/*/.DS_Store
+uah/*/.DS_Store
+tutorial/*/.DS_Store
 
 # Object files
 *.o
