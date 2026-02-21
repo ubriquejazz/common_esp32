@@ -1,0 +1,161 @@
+[
+    {
+        "id": "01044ea9db625827",
+        "type": "tab",
+        "label": "Flujo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f6667954.099988",
+        "type": "mqtt in",
+        "z": "01044ea9db625827",
+        "name": "",
+        "topic": "sensor_temp",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "71d3c6e39ed1cf3f",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 190,
+        "y": 320,
+        "wires": [
+            [
+                "669346eff2eea217"
+            ]
+        ]
+    },
+    {
+        "id": "669346eff2eea217",
+        "type": "ui_text",
+        "z": "01044ea9db625827",
+        "group": "7f9b82d88134ddf8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Temperatura",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 390,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "9a8f139e7ddb2f1d",
+        "type": "mqtt out",
+        "z": "01044ea9db625827",
+        "name": "",
+        "topic": "actuador/luz",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "71d3c6e39ed1cf3f",
+        "x": 470,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "19662f2a526a4c11",
+        "type": "ui_switch",
+        "z": "01044ea9db625827",
+        "name": "",
+        "label": "Boton",
+        "tooltip": "",
+        "group": "7f9b82d88134ddf8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "actuador/luz",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 170,
+        "y": 460,
+        "wires": [
+            [
+                "9a8f139e7ddb2f1d"
+            ]
+        ]
+    },
+    {
+        "id": "71d3c6e39ed1cf3f",
+        "type": "mqtt-broker",
+        "name": "rpi4",
+        "broker": "192.168.137.2",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "7f9b82d88134ddf8",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "420166415ac75ee9",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "420166415ac75ee9",
+        "type": "ui_tab",
+        "name": "home_tab",
+        "icon": "dashboard",
+        "disabled": true,
+        "hidden": false
+    },
+    {
+        "id": "2ed5c9cc4c8eba91",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
