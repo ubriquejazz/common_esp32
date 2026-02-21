@@ -4,13 +4,12 @@
 import paho.mqtt.client as mqtt
 import time
 
-# Configuración
-broker_address = "test.mosquitto.org" 
-# broker_address = "127.0.0.1"
+#broker_address = "test.mosquitto.org" 
+broker_address = "127.0.0.1"
 topic = "sensor_tmp"
 valor = "23.7"
 
-client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1, "P1") 
+client = mqtt.Client() 
 print(f"Conectando al broker: {broker_address}")
 client.connect(broker_address) 
 
