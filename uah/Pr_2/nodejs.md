@@ -12,6 +12,7 @@ Run Mosquitto in the background as a daemon:
 
 ```
 node -v
+npm install mqtt
 sudo systemctl enable mosquitto
 mosquitto -d
 ```
@@ -35,7 +36,7 @@ En este apartado se presenta un ejemplo simple en JavaScript.
 Para ejecutarlo es necesario tener instalado Node.js (https://nodejs.org/en/) y el cliente para protocolo MQTT (https://www.npmjs.com/package/mqtt)
 
 ```
-$ node prac2_mqqt.js
+$ node app_mqqt.js
 Conectado al broker con éxito
 Suscrito a: sensor_en_MQTTfx
 Mensaje enviado a: sensor_tmp
@@ -46,9 +47,6 @@ Mensaje recibido en [sensor_en_MQTTfx]: 31.5
 Esta figura muestra la ejecución del script. Se puede observar la respuesta del topic 'sensor_en_MQTTfx'
 
 ---
-
-
-
 
 
 ### Instalar Node-RED
@@ -103,8 +101,6 @@ Este flujo recibirá el valor de tu script de Node.js y lo mostrará simultánea
 5. **Configura el Broker:** Haz doble clic en el nodo azul de la izquierda (`mqtt in`) y asegúrate de que esté conectado a `test.mosquitto.org` o a tu `localhost`.
 6. Pulsa el botón rojo **Deploy**.
 
-------
-
 **Un último detalle...**
 
 Si quieres que la gráfica se mueva más rápido para probarla, puedes modificar tu script de Node.js (el `app.js`) para que envíe un valor aleatorio cada 5 segundos en lugar de uno fijo:
@@ -117,8 +113,6 @@ setInterval(() => {
     client.publish('sensor_tmp', tempSimulada);
 }, 5000);
 ```
-
-
 
 ## Boton
 

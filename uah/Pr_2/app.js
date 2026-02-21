@@ -1,6 +1,6 @@
 const mqtt = require('mqtt');
 const client = mqtt.connect('mqtt://localhost');
-const TOPIC_SENSOR = 'sensor_en_MQTTfx';
+const TOPIC_SENSOR = 'sensor_temp';
 
 // Al conectarse...
 client.on('connect', function () {
@@ -8,13 +8,13 @@ client.on('connect', function () {
     client.subscribe(TOPIC_SENSOR, function (err) {
 
         if (!err) {
-            console.log('Suscrito a:' + TOPIC_SENSOR);
+            console.log('Suscrito a: ' + TOPIC_SENSOR);
             setInterval(() => {
                 const tempSimulada = (20 + Math.random() * 10).toFixed(1);
                 client.publish(TOPIC_SENSOR, tempSimulada);
             }, 5000);
             //client.publish('sensor_tmp', '30.4');
-            console.log('Mensaje enviado a:' + TOPIC_SENSOR);
+            console.log('Mensaje enviado!');
         }
     });
 });
