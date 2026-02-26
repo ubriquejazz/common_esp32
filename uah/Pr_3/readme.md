@@ -35,7 +35,11 @@ Conectar al bus I2C de la Raspberry un [INA219](https://www.ti.com/lit/ds/symlin
 ~/.node-red$ node ina219.js
 ```
 
-Modificar el programa anterior añadiendo un setInterval para que se tomen medidas del INA219 cada 2 segundos. Grabar (con el móvil) un video de unos pocos segundos en el que se muestre como se varía el potenciómetro y a la vez la salida por consola (MobaXterm) de los valores del INA219.
+Modificar el programa anterior añadiendo un setInterval para que se tomen medidas del INA219 cada 2s.
+
+- Grabar un video de unos pocos segundos en el que se muestre como se varía el potenciómetro y a la vez la salida por consola (MobaXterm) de los valores del INA219.
+
+![](fig/bulb.gif)
 
 **Ejercico 5A: Simple Dashboard**
 
