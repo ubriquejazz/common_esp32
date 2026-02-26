@@ -29,7 +29,7 @@ Leer la documentación sobre la palabra clave ‘require’ y comentar brevement
 
 **Ejercicio I2C** 
 
-Conectar al bus I2C de la Raspberry un [INA219](https://www.ti.com/lit/ds/symlink/ina219.pdf?ts=1615288223466&ref_url=https%253A%252F%2 2Fwww.ti.com%252Famplifier-circuit%252Fcurrent-sense%252Fpower-currentmonitors%252Fproducts.html ) y un resistor variable. Programar el JS anterior y ejecutarlo tomando varias medidas según posición del potenciómetro.
+Conectar al bus I2C de la Raspberry un [INA219](https://www.ti.com/lit/ds/symlink/ina219.pdf) y un resistor variable. Programar el JS anterior y ejecutarlo tomando varias medidas según posición del potenciómetro.
 
 ```
 ~/.node-red$ node ina219.js
