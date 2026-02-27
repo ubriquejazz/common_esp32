@@ -13,6 +13,12 @@ Programar el JS anterior en la Raspberry y ejecutarlo.
 $ node ex02.js 
 Hola desde Node.js 
 Suma :1234 + 1.234 = 1235.234
+Execution 1  
+Execution 2  
+Execution 3  
+Execution 4  
+Execution 5  
+Interval stopped after 5 executions! 
 ```
 
 **Ejercicio LED**
