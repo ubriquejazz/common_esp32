@@ -23,15 +23,24 @@ Interval stopped after 5 executions!
 
 **Ejercicio LED**
 
-Conectar un LED al pin 18, programar el JS anterior y ejecutarlo. Leer la documentación sobre los métodos setInterval, clearInterval, setTimeout y comentar brevemente cómo funcionan.
+Conectar un LED al pin 18 (530), programar el JS anterior y ejecutarlo. Leer la documentación sobre los métodos setInterval, clearInterval, setTimeout y comentar brevemente cómo funcionan.
 
 ```
-~$ cd .node-red 
+~$ cat /sys/kernel/debug/gpio
+...
 ~/.node-red$ npm install onoff
-~/.node-red$ node oo.js
+~/.node-red$ npm list
 ```
 
 Leer la documentación sobre la palabra clave ‘require’ y comentar brevemente para qué sirve.
+
+```
+~/repo/uah$  ./copiar.sh Pr_3
+~/repo/uah$  cd ~/.node-red
+~/.node-red$ node Pr_3/blink.js
+
+~/.node-red$ 
+```
 
 **Ejercicio I2C** 
 
