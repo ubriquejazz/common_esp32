@@ -1,10 +1,13 @@
-var Gpio = require('onoff').Gpio; 
+var Gpio = require('../onoff').Gpio; 
 
 // use GPIO pin 18, and specify that it is ouput
 var LED = new Gpio(18, 'out'); 
 
 //run the blinkLED function every 250ms
 var blinkInterval = setInterval(blinkLED, 250); 
+
+//stop blinking after 5 seconds
+setTimeout(endBlink, 5000);
 
 //function to start blinking
 function blinkLED() { 
@@ -23,5 +26,4 @@ function endBlink() {
     LED.unexport(); // to free resources
 } 
 
-//stop blinking after 5 seconds
-setTimeout(endBlink, 5000);
+
