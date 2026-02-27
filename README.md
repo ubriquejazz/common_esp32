@@ -1,28 +1,24 @@
-# common_esp32
+# ESP32-IoT
+
+7AVcUjOF
 
 ## Arquitectura Nodos en IoT
 
-UPM [practicas](https://miot-rpi.github.io/practicas/ANIOT/P1/)
+### UPM [practicas](https://miot-rpi.github.io/practicas/ANIOT/P1/)
 
 1. Blink with Delays
 2. Blink with Timers
 3. Tasks and events
-4. Bus i2c (sht sensor)
-5. ADC
+  
+### Bus i2c (sht sensor)
 
 - e_1 -> Uso de `i2ctools`
-
 - e_2 -> Lectura de temperatura
-
 - e_3 -> Uso de CRC en sensor
-
 - e_4 -> Aplicación con FSM
 
----
-
-e_1 -> Lectura de fuente de tensión variable
-
-e_2 -> Lectura de distancias
+### ADC
+- e_1 -> Lectura de fuente de tensión variable
 
 ## Tutorial with three phases
 
