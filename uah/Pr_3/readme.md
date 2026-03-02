@@ -56,5 +56,9 @@ Modificar el programa anterior añadiendo un setInterval para que se tomen medid
 
 ![](fig/bulb.gif)
 
+**Ejercicio 4Z. ESPHome Sensor** 
+
+Podemos conectar el triple sensor [INA3221](https://esphome.io/components/sensor/ina3221/) a un ESP32 y convertirlo en un elemento de HomeAssistant.
+
 
 
