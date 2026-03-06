@@ -2,24 +2,14 @@
 
 7AVcUjOF, domiatek
 
-## UAH - Stmas e Ifaces Web para apps IoT
-
-1. Intro
-2. Protocolo MQTT
-3. RPi, Node-RED, INA219
-4. Web-server
-5. Motas ESP32
-
-## ANIoT (arquitectura de nodos para IoT)
-
-### UPM [practicas](https://miot-rpi.github.io/practicas/ANIOT/P1/)
+Seguir [practicas](https://miot-rpi.github.io/practicas/ANIOT/P1/) de la UPM
 
 1. Blink with Delays
 2. Blink with Timers
 3. Tasks and events
 4. Bus I2C
   
-### Project with a SHT sensor
+Project with a SHT sensor
 
 - e_1 -> Uso de `i2ctools`
 - e_2 -> Lectura de temperatura
