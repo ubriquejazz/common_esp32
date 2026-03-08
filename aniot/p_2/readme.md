@@ -1,4 +1,4 @@
-# Programación con tareas y eventos en ESP-IDF
+# 2. Programación con tareas y eventos 
 
 El objetivo  de esta práctica es conocer los mecanismos para la gestión de tareas que ofrece FreeRTOS, concretamente en su porting  ESP-IDF.
 
@@ -29,11 +29,11 @@ En los vídeos y transparencias de la asignatura disponibles en el  Campus Virtu
 
 Los siguientes ejercicios se proponen como una práctica sencilla de esos mecanismos.
 
-## Primera sesión: Ejercicios básicos
+## Pr_2_A: Ejercicios básicos
 
 ### Creación de una tarea para realizar el muestreo
 
-Escribe una aplicación que creará una tarea para muestrear un sensor. Denominaremos *muestreadora* a dicha tarea y deberá muestrear periódicamnete el sensor [SHTC3 de Sensirion](https://sensirion.com/resource/datasheet/shtc3).  La tarea muestreadora comunicará la lectura con la tarea inicial (la que ejecuta `app_main()`) a través de una variable global. 
+Escribe una aplicación que creará una tarea para muestrear un sensor. Denominaremos *muestreadora* a dicha tarea y deberá muestrear periódicamente el sensor [SHTC3 de Sensirion](https://sensirion.com/resource/datasheet/shtc3).  La tarea muestreadora comunicará la lectura con la tarea inicial (la que ejecuta `app_main()`) a través de una variable global. 
 
 Tarea
 
