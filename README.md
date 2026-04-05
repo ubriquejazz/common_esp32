@@ -1,19 +1,10 @@
-# ESP-DIF
-
-- At least 5 years of hands-on experience as a Software Engineer, preferably in a regulated environment such as medical devices
-- Recent experience with modern C++ (C++11 or newer) and Linux as primary development environment
-- Strong hands-on experience with Linux Dockers and CAN bus: design, development, testing, bug fixing, and maintenance
-
+# ESP-IDF
 
 1. Three LED lights blinking on and off, task increase the speed with a button. Add a semaphore to give some order (template task called **TaskBlink**)
 
 1. Two new tasks: one to show the number of LEDs lit via an OLED display and other to show the watermark of each tasks at the begining (serial).
 
-   
-
 ![img](https://miro.medium.com/v2/resize:fit:1400/1*Ium5nL6kGjRzAcKUvPTjFQ.jpeg)
-
-
 
 ## API
 
@@ -24,14 +15,6 @@
 - **command.h** --> serial parser and executer (semaphore and queue)
 
 - pool, mbox and other tools for RTOS
-
-  
-
-## Pinouts
-
-![ESP32-CAM Pinout Reference](https://lastminuteengineers.com/wp-content/uploads/iot/ESP32-CAM-Pinout.png)
-
-![alt text](image.png)
 
 ## TODO
 
