@@ -14,6 +14,13 @@ We are going to follow three labs in this [tutorial](https://medium.com/@tomw311
 
 - Serial parse and executer (semaphore and queue). Hardware: ESP32 Dev (WROOM), ESP-CAM
 
+**Prac04**
+
+- To measure a cyclist's cadence by performing zero-crossing detection on centered analog signals from a sensor, calculating the RPM based on the time intervals between polarity shifts. 
+- A dedicated task handles high-frequency ADC sampling every 20ms and applies a moving average to smooth the data, while also monitoring for inactivity to reset the RPM to zero. 
+- A separate Bluetooth task transmits these processed values to a mobile device at a configurable frequency using the Cycling Power Service.
+
+
 ## Functions
 
 These are the function prototypes that will be used to create  tasks. 
